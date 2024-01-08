@@ -1,5 +1,7 @@
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import { Box } from '@mui/material';
+import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,7 +17,13 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>{children}</body>
+			<body className={inter.className}>
+				<AppRouterCacheProvider>
+					<Box px={1} py={3} minHeight="100vh">
+						{children}
+					</Box>
+				</AppRouterCacheProvider>
+			</body>
 		</html>
 	);
 }
