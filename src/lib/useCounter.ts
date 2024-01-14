@@ -1,13 +1,16 @@
 import { useCallback, useState } from 'react';
 
 export type CounterOptions = {
-	min?: number;
-	max?: number;
+	min?: number | null;
+	max?: number | null;
 };
 
 const useCounter = (
-	initialValue: number | null,
-	options: CounterOptions = {}
+	initialValue: number,
+	options: CounterOptions = {
+		min: null,
+		max: null,
+	}
 ) => {
 	const { min, max } = options;
 
@@ -16,16 +19,16 @@ const useCounter = (
 	const wrapValue = (value: number) =>
 		Math.max(Math.min(value, max ?? value), min ?? value);
 
-	const set = useCallback((newValue: number | null) => {
-		setValue(newValue !== null ? wrapValue(newValue) : null);
+	const set = useCallback((newValue: number) => {
+		setValue(wrapValue(newValue));
 	}, []);
 
 	const increase = useCallback(() => {
-		setValue((value) => (value !== null ? wrapValue(value + 1) : null));
+		setValue((value) => (wrapValue(value + 1)));
 	}, []);
 
 	const decrease = useCallback(() => {
-		setValue((value) => (value !== null ? wrapValue(value - 1) : null));
+		setValue((value) => (wrapValue(value - 1)));
 	}, []);
 
 	return {
