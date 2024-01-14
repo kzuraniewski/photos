@@ -4,16 +4,16 @@ import { Box, ImageList, ImageListItem } from '@mui/material';
 import GalleryImage from './GalleryImage';
 
 export type GalleryProps = {
-	images: string[];
+	imagePaths: string[];
 };
 
-const Gallery = ({ images }: GalleryProps) => {
+const Gallery = ({ imagePaths }: GalleryProps) => {
 	return (
 		<Box sx={{ display: 'flex', justifyContent: 'center' }}>
 			<ImageList cols={3}>
-				{images.map((path, index) => (
+				{imagePaths.map((imagePath, index) => (
 					<ImageListItem key={`gallery-image-${index}`}>
-						<GalleryImage src={path} />
+						<GalleryImage src={imagePath} />
 					</ImageListItem>
 				))}
 			</ImageList>
