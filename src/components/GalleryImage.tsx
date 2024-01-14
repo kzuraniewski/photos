@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import Image from 'next/image';
 
 export type GalleryImageProps = {
@@ -5,7 +6,16 @@ export type GalleryImageProps = {
 };
 
 const GalleryImage = ({ src }: GalleryImageProps) => {
-	return <Image src={src} alt="Gallery image" width={250} height={250} />;
+	return (
+		<Box sx={{ position: 'relative', width: 250, height: 250 }}>
+			<Image
+				src={src}
+				alt="Gallery image"
+				fill
+				style={{ objectFit: 'cover' }}
+			/>
+		</Box>
+	);
 };
 
 export default GalleryImage;
