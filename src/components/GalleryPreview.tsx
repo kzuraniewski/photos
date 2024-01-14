@@ -1,5 +1,5 @@
-import { Box, Modal } from '@mui/material';
-import Image from 'next/image';
+import { Box, Modal, CircularProgress } from '@mui/material';
+import LoadingImage from './LoadingImage';
 
 export type GalleryPreviewProps = {
 	open: boolean;
@@ -28,15 +28,24 @@ const GalleryPreview = ({
 					top: '50%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
-					width: 500,
-					height: 500,
 				}}
 			>
-				<Image
+				<LoadingImage
 					src={image}
 					alt="Gallery image preview"
-					fill
+					width={500}
+					height={500}
 					style={{ objectFit: 'contain' }}
+					loadingElement={
+						<CircularProgress
+							sx={{
+								position: 'absolute',
+								top: '50%',
+								left: '50%',
+								transform: 'translate(-50%, -50%)',
+							}}
+						/>
+					}
 				/>
 			</Box>
 		</Modal>
