@@ -4,9 +4,10 @@ import { useState } from 'react';
 
 export type GalleryImageProps = {
 	src: string;
+	onClick: () => void;
 };
 
-const GalleryImage = ({ src }: GalleryImageProps) => {
+const GalleryImage = ({ src, onClick }: GalleryImageProps) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	return (
@@ -15,6 +16,7 @@ const GalleryImage = ({ src }: GalleryImageProps) => {
 
 			<ButtonBase
 				disabled={isLoading}
+				onClick={onClick}
 				sx={{
 					transition: '0.2s',
 					'&:hover': { filter: 'brightness(0.85)' },
