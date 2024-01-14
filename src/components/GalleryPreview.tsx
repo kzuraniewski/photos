@@ -1,4 +1,5 @@
 import { Box, Modal } from '@mui/material';
+import Image from 'next/image';
 
 export type GalleryPreviewProps = {
 	open: boolean;
@@ -15,9 +16,9 @@ const GalleryPreview = ({
 	image,
 	disablePreviousButton = false,
 	disableNextButton = false,
-	onClose = () => {},
-	onPrevious = () => {},
-	onNext = () => {},
+	onClose,
+	onPrevious,
+	onNext,
 }: GalleryPreviewProps) => {
 	return (
 		<Modal open={open} onClose={onClose}>
@@ -27,12 +28,16 @@ const GalleryPreview = ({
 					top: '50%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
-					background: 'red',
-					width: 200,
-					height: 200,
+					width: 500,
+					height: 500,
 				}}
 			>
-				{image}
+				<Image
+					src={image}
+					alt="Gallery image preview"
+					fill
+					style={{ objectFit: 'contain' }}
+				/>
 			</Box>
 		</Modal>
 	);
