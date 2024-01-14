@@ -1,7 +1,8 @@
 import { Inter } from 'next/font/google';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { Box, Container } from '@mui/material';
+import { CssBaseline, Box, Container, ThemeProvider } from '@mui/material';
 import type { Metadata } from 'next';
+import theme from '@/theme';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,9 +16,21 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 		<html lang="en">
 			<body className={inter.className}>
 				<AppRouterCacheProvider>
-					<Box px={1} py={3} minHeight="100vh">
-						<Container>{children}</Container>
-					</Box>
+					<ThemeProvider theme={theme}>
+						<CssBaseline />
+
+						<Box
+							sx={{
+								px: 1,
+								py: 3,
+								minHeight: '100vh',
+								background:
+									'linear-gradient(180deg, rgba(0,8,14,1) 0%, rgba(20,42,80,1) 100%)',
+							}}
+						>
+							<Container>{children}</Container>
+						</Box>
+					</ThemeProvider>
 				</AppRouterCacheProvider>
 			</body>
 		</html>

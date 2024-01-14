@@ -1,8 +1,6 @@
-import { Box, Skeleton } from '@mui/material';
+import { ButtonBase, Skeleton } from '@mui/material';
 import Image from 'next/image';
 import { useState } from 'react';
-
-const IMAGE_SIZE = 250;
 
 export type GalleryImageProps = {
 	src: string;
@@ -12,25 +10,26 @@ const GalleryImage = ({ src }: GalleryImageProps) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	return (
-		<Box
-			sx={{ position: 'relative', width: IMAGE_SIZE, height: IMAGE_SIZE }}
-		>
-			{isLoading && (
-				<Skeleton
-					variant="rectangular"
-					width={IMAGE_SIZE}
-					height={IMAGE_SIZE}
-				/>
-			)}
+		<div>
+			{isLoading && <Skeleton variant="rectangular" height="100%" />}
 
-			<Image
-				src={src}
-				alt="Gallery image"
-				fill
-				style={{ objectFit: 'cover' }}
-				onLoad={() => setIsLoading(false)}
-			/>
-		</Box>
+			<ButtonBase
+				disabled={isLoading}
+				sx={{
+					transition: '0.2s',
+					'&:hover': { filter: 'brightness(0.85)' },
+				}}
+			>
+				<Image
+					src={src}
+					alt="Gallery image"
+					width={250}
+					height={250}
+					style={{ objectFit: 'cover' }}
+					onLoad={() => setIsLoading(false)}
+				/>
+			</ButtonBase>
+		</div>
 	);
 };
 
