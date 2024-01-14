@@ -24,28 +24,23 @@ const GalleryPreview = ({
 		<Modal open={open} onClose={onClose}>
 			<Box
 				sx={{
+					width: 500,
+					height: 500,
 					position: 'absolute',
 					top: '50%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
 				}}
 			>
 				<LoadingImage
 					src={image}
 					alt="Gallery image preview"
-					width={500}
-					height={500}
+					fill
 					style={{ objectFit: 'contain' }}
-					loadingElement={
-						<CircularProgress
-							sx={{
-								position: 'absolute',
-								top: '50%',
-								left: '50%',
-								transform: 'translate(-50%, -50%)',
-							}}
-						/>
-					}
+					loadingElement={<CircularProgress />}
 				/>
 			</Box>
 		</Modal>
