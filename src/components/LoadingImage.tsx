@@ -14,14 +14,14 @@ const LoadingImage = ({
 	const [isLoading, setIsLoading] = useState(true);
 
 	return (
-		<>
+		<div>
 			{isLoading && loadingElement}
 			<Image
 				{...imageProps}
 				style={{ objectFit: contained ? 'contain' : 'cover' }}
 				onLoad={() => setIsLoading(false)}
 			/>
-		</>
+		</div>
 	);
 };
 
