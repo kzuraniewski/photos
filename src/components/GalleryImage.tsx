@@ -20,7 +20,6 @@ const GalleryImage = ({ src, onClick }: GalleryImageProps) => {
 				alt="Gallery image"
 				width={250}
 				height={250}
-				style={{ objectFit: 'cover' }}
 				loadingElement={
 					<Skeleton
 						variant="rectangular"

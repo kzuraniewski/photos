@@ -3,15 +3,24 @@ import Image, { ImageProps } from 'next/image';
 
 export type LoadingImageProps = ImageProps & {
 	loadingElement: JSX.Element;
+	contained?: boolean;
 };
 
-const LoadingImage = ({ loadingElement, ...imageProps }: LoadingImageProps) => {
+const LoadingImage = ({
+	contained = false,
+	loadingElement,
+	...imageProps
+}: LoadingImageProps) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	return (
 		<>
 			{isLoading && loadingElement}
-			<Image {...imageProps} onLoad={() => setIsLoading(false)} />
+			<Image
+				{...imageProps}
+				style={{ objectFit: contained ? 'contain' : 'cover' }}
+				onLoad={() => setIsLoading(false)}
+			/>
 		</>
 	);
 };

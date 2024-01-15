@@ -39,7 +39,7 @@ const GalleryPreview = ({
 					src={image}
 					alt="Gallery image preview"
 					fill
-					style={{ objectFit: 'contain' }}
+					contained
 					loadingElement={<CircularProgress />}
 				/>
 			</Box>
