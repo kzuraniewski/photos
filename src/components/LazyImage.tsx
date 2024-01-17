@@ -1,6 +1,7 @@
 import { Box, CircularProgress, Skeleton } from '@mui/material';
 import NextImage, { ImageProps as NextImageProps } from 'next/image';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import { Centered } from './layout-util';
 
 export type LazyImageLoader = 'skeleton' | 'spinner';
 
@@ -26,23 +27,13 @@ const LazyImage = ({
 }: ImageProps) => {
 	const [isLoading, setIsLoading] = useState(true);
 
+	// prettier-ignore
 	const loadingElement = useMemo(() => {
 		if (loader === 'skeleton')
-			return (
-				<Skeleton variant="rectangular" width="100%" height="100%" />
-			);
+			return <Skeleton variant="rectangular" width="100%" height="100%" />;
 
 		if (loader === 'spinner')
-			return (
-				<CircularProgress
-					sx={{
-						position: 'absolute',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%, -50%)',
-					}}
-				/>
-			);
+			return <Centered component={CircularProgress} />;
 	}, [loader]);
 
 	return (
