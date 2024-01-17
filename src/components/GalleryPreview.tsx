@@ -1,5 +1,5 @@
-import { Box, Modal, CircularProgress } from '@mui/material';
-import LoadingImage from './LoadingImage';
+import { Box, Modal } from '@mui/material';
+import LazyImage from './LazyImage';
 
 export type GalleryPreviewProps = {
 	open: boolean;
@@ -24,23 +24,19 @@ const GalleryPreview = ({
 		<Modal open={open} onClose={onClose}>
 			<Box
 				sx={{
-					width: 500,
-					height: 500,
 					position: 'absolute',
 					top: '50%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
 				}}
 			>
-				<LoadingImage
+				<LazyImage
 					src={image}
 					alt="Gallery image preview"
-					fill
-					contained
-					loadingElement={<CircularProgress />}
+					width={500}
+					height={500}
+					variant="contain"
+					loader="spinner"
 				/>
 			</Box>
 		</Modal>

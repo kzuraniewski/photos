@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { Box, ImageList, ImageListItem } from '@mui/material';
-import GalleryImage from './GalleryImage';
-import GalleryPreview from './GalleryPreview';
 import useCounter from '@/lib/useCounter';
+import { Box, ImageList, ImageListItem } from '@mui/material';
+import { useState } from 'react';
+import GalleryPreview from './GalleryPreview';
+import ImageButton from './ImageButton';
+import LazyImage from './LazyImage';
 
 export type GalleryProps = {
 	imagePaths: string[];
@@ -33,10 +34,14 @@ const Gallery = ({ imagePaths }: GalleryProps) => {
 				<ImageList cols={3}>
 					{imagePaths.map((imagePath, index) => (
 						<ImageListItem key={`gallery-image-${index}`}>
-							<GalleryImage
-								src={imagePath}
-								onClick={() => previewImage(index)}
-							/>
+							<ImageButton onClick={() => previewImage(index)}>
+								<LazyImage
+									src={imagePath}
+									alt="Gallery image"
+									width={250}
+									height={250}
+								/>
+							</ImageButton>
 						</ImageListItem>
 					))}
 				</ImageList>
