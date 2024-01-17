@@ -1,5 +1,6 @@
 import { Box, Modal } from '@mui/material';
 import LazyImage from './LazyImage';
+import { Centered } from './layout-util';
 
 export type GalleryPreviewProps = {
 	open: boolean;
@@ -22,14 +23,7 @@ const GalleryPreview = ({
 }: GalleryPreviewProps) => {
 	return (
 		<Modal open={open} onClose={onClose}>
-			<Box
-				sx={{
-					position: 'absolute',
-					top: '50%',
-					left: '50%',
-					transform: 'translate(-50%, -50%)',
-				}}
-			>
+			<Centered>
 				<LazyImage
 					src={image}
 					alt="Gallery image preview"
@@ -38,7 +32,7 @@ const GalleryPreview = ({
 					variant="contain"
 					loader="spinner"
 				/>
-			</Box>
+			</Centered>
 		</Modal>
 	);
 };

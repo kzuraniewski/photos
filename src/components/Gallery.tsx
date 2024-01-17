@@ -6,6 +6,7 @@ import { useState } from 'react';
 import GalleryPreview from './GalleryPreview';
 import ImageButton from './ImageButton';
 import LazyImage from './LazyImage';
+import { Centered } from './layout-util';
 
 export type GalleryProps = {
 	images: string[];
