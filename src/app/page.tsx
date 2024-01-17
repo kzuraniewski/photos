@@ -17,7 +17,7 @@ const Home = async () => {
 
 	return (
 		<>
-			<Gallery imagePaths={images} />
+			<Gallery images={images} />
 		</>
 	);
 };

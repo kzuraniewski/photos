@@ -8,10 +8,10 @@ import ImageButton from './ImageButton';
 import LazyImage from './LazyImage';
 
 export type GalleryProps = {
-	imagePaths: string[];
+	images: string[];
 };
 
-const Gallery = ({ imagePaths }: GalleryProps) => {
+const Gallery = ({ images }: GalleryProps) => {
 	const {
 		value: previewIndex,
 		decrease: decreasePreviewIndex,
@@ -19,7 +19,7 @@ const Gallery = ({ imagePaths }: GalleryProps) => {
 		set: setPreviewIndex,
 	} = useCounter(0, {
 		min: 0,
-		max: imagePaths.length - 1,
+		max: images.length - 1,
 	});
 	const [isPreviewMode, setIsPreviewMode] = useState(false);
 
@@ -32,7 +32,7 @@ const Gallery = ({ imagePaths }: GalleryProps) => {
 		<>
 			<Box sx={{ display: 'flex', justifyContent: 'center' }}>
 				<ImageList cols={3}>
-					{imagePaths.map((imagePath, index) => (
+					{images.map((imagePath, index) => (
 						<ImageListItem key={`gallery-image-${index}`}>
 							<ImageButton onClick={() => previewImage(index)}>
 								<LazyImage
@@ -49,8 +49,8 @@ const Gallery = ({ imagePaths }: GalleryProps) => {
 
 			<GalleryPreview
 				open={isPreviewMode}
-				image={imagePaths[previewIndex]}
-				disableNextButton={previewIndex >= imagePaths.length - 1}
+				image={images[previewIndex]}
+				disableNextButton={previewIndex >= images.length - 1}
 				disablePreviousButton={previewIndex <= 0}
 				onClose={() => setIsPreviewMode(false)}
 				onPrevious={decreasePreviewIndex}
