@@ -1,6 +1,7 @@
 'use client';
 
 import useCounter from '@/lib/useCounter';
+import { GalleryContext } from '@/lib/useGalleryContext';
 import { useState } from 'react';
 import GalleryImageList from './GalleryImageList';
 import GalleryPreview from './GalleryPreview';
@@ -10,39 +11,33 @@ export type GalleryProps = {
 };
 
 const Gallery = ({ images }: GalleryProps) => {
-	const {
-		value: previewIndex,
-		atMin: isPreviewLeftmost,
-		atMax: isPreviewRightmost,
-		decrease: decreasePreviewIndex,
-		increase: increasePreviewIndex,
-		set: setPreviewIndex,
-	} = useCounter(0, {
+	const imageIndexCounter = useCounter(0, {
 		min: 0,
 		max: images.length - 1,
 	});
 	const [isPreviewMode, setIsPreviewMode] = useState(false);
 
-	const previewImage = (imageIndex: number) => {
+	const openPreview = (imageIndex?: number) => {
 		setIsPreviewMode(true);
-		setPreviewIndex(imageIndex);
+		if (imageIndex) imageIndexCounter.set(imageIndex);
 	};
 
-	return (
-		<>
-			<GalleryImageList images={images} onSelect={previewImage} />
+	const closePreview = () => setIsPreviewMode(false);
 
-			<GalleryPreview
-				images={images}
-				index={previewIndex}
-				open={isPreviewMode}
-				onClose={() => setIsPreviewMode(false)}
-				onNext={increasePreviewIndex}
-				disableNext={isPreviewRightmost}
-				onPrevious={decreasePreviewIndex}
-				disablePrevious={isPreviewLeftmost}
-			/>
-		</>
+	return (
+		<GalleryContext.Provider
+			value={{
+				images,
+				imageIndexCounter,
+				isPreviewMode,
+				openPreview,
+				closePreview,
+			}}
+		>
+			<GalleryImageList images={images} onSelect={openPreview} />
+			
+			<GalleryPreview />
+		</GalleryContext.Provider>
 	);
 };
 

@@ -44,4 +44,6 @@ const useCounter = (
 	};
 };
 
+export type Counter = ReturnType<typeof useCounter>;
+
 export default useCounter;

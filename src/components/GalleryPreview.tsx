@@ -1,42 +1,23 @@
+import useGalleryContext from '@/lib/useGalleryContext';
 import { Modal } from '@mui/material';
 import GalleryPreviewActions from './GalleryPreviewActions';
 import GalleryPreviewImagePreload from './GalleryPreviewImagePreload';
 import { Centered } from './layout-util';
 
-export type GalleryPreviewProps = {
-	images: string[];
-	index: number;
-	open?: boolean;
-	disableNext?: boolean;
-	disablePrevious?: boolean;
-	onClose?: () => void;
-	onNext?: () => void;
-	onPrevious?: () => void;
-};
+const GalleryPreview = () => {
+	const { imageIndexCounter, isPreviewMode, closePreview } =
+		useGalleryContext();
 
-const GalleryPreview = ({
-	images,
-	index,
-	open = false,
-	disablePrevious,
-	disableNext,
-	onPrevious,
-	onNext,
-	onClose,
-}: GalleryPreviewProps) => {
 	return (
-		<Modal open={open} onClose={() => onClose?.()}>
+		<Modal open={isPreviewMode} onClose={closePreview}>
 			<Centered>
-				<GalleryPreviewImagePreload
-					images={images}
-					selectedIndex={index}
-				/>
+				<GalleryPreviewImagePreload />
 
 				<GalleryPreviewActions
-					onPrevious={onPrevious}
-					onNext={onNext}
-					disablePrevious={disablePrevious}
-					disableNext={disableNext}
+					onPrevious={imageIndexCounter.decrease}
+					onNext={imageIndexCounter.increase}
+					disablePrevious={imageIndexCounter.atMin}
+					disableNext={imageIndexCounter.atMax}
 				/>
 			</Centered>
 		</Modal>
