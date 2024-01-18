@@ -1,7 +1,9 @@
 import { Box, CircularProgress, Skeleton } from '@mui/material';
 import NextImage, { ImageProps as NextImageProps } from 'next/image';
 import { useMemo, useState } from 'react';
-import { Centered } from './layout-util';
+import cx, { Centered } from './layout-util';
+
+const Root = cx(Box, { position: 'relative' });
 
 export type LazyImageLoader = 'skeleton' | 'spinner';
 
@@ -38,7 +40,7 @@ const LazyImage = ({
 	}, [loader]);
 
 	return (
-		<Box position="relative">
+		<Root>
 			{isLoading && loadingElement}
 			<NextImage
 				src={src}
@@ -49,7 +51,7 @@ const LazyImage = ({
 				style={{ objectFit: variant }}
 				onLoad={() => setIsLoading(false)}
 			/>
-		</Box>
+		</Root>
 	);
 };
 

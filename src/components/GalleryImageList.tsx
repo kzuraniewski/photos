@@ -1,6 +1,14 @@
-import { Box, ImageList, ImageListItem } from '@mui/material';
-import ImageButton from './ImageButton';
+import { Box, ButtonBase, ImageList, ImageListItem } from '@mui/material';
 import LazyImage from './LazyImage';
+import sx from './layout-util';
+
+const Root = sx(Box, { display: 'flex', justifyContent: 'center' });
+
+const ImageButton = sx(ButtonBase, {
+	position: 'relative',
+	transition: '0.2s',
+	'&:hover': { filter: 'brightness(0.85)' },
+});
 
 export type GalleryImageListProps = {
 	images: string[];
@@ -9,7 +17,7 @@ export type GalleryImageListProps = {
 
 const GalleryImageList = ({ images, onSelect }: GalleryImageListProps) => {
 	return (
-		<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+		<Root>
 			<ImageList cols={3}>
 				{images.map((imagePath, index) => (
 					<ImageListItem key={`gallery-image-${index}`}>
@@ -24,7 +32,7 @@ const GalleryImageList = ({ images, onSelect }: GalleryImageListProps) => {
 					</ImageListItem>
 				))}
 			</ImageList>
-		</Box>
+		</Root>
 	);
 };
 
