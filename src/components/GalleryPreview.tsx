@@ -1,8 +1,22 @@
 import useGalleryContext from '@/lib/useGalleryContext';
-import { Modal } from '@mui/material';
+import { Box, Modal } from '@mui/material';
 import GalleryPreviewActions from './GalleryPreviewActions';
 import GalleryPreviewImagePreload from './GalleryPreviewImagePreload';
-import { Centered } from './layout-util';
+import sx, { Centered } from './layout-util';
+
+const Background = sx(Box, {
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	width: '100%',
+	height: '100%',
+	backdropFilter: 'blur(3px)',
+	pointerEvents: 'none',
+});
+
+const Panel = sx(Centered, {
+	pointerEvents: 'auto',
+});
 
 const GalleryPreview = () => {
 	const { imageIndexCounter, isPreviewMode, closePreview } =
@@ -10,16 +24,18 @@ const GalleryPreview = () => {
 
 	return (
 		<Modal open={isPreviewMode} onClose={closePreview}>
-			<Centered>
-				<GalleryPreviewImagePreload />
+			<Background>
+				<Panel>
+					<GalleryPreviewImagePreload />
 
-				<GalleryPreviewActions
-					onPrevious={imageIndexCounter.decrease}
-					onNext={imageIndexCounter.increase}
-					disablePrevious={imageIndexCounter.atMin}
-					disableNext={imageIndexCounter.atMax}
-				/>
-			</Centered>
+					<GalleryPreviewActions
+						onPrevious={imageIndexCounter.decrease}
+						onNext={imageIndexCounter.increase}
+						disablePrevious={imageIndexCounter.atMin}
+						disableNext={imageIndexCounter.atMax}
+					/>
+				</Panel>
+			</Background>
 		</Modal>
 	);
 };
