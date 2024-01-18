@@ -13,9 +13,7 @@ const RootStack = sx(Stack, {
 	height: imageSizes.big.height,
 });
 
-export type GalleryPreviewPaginationProps = {};
-
-const GalleryPreviewPagination = ({}: GalleryPreviewPaginationProps) => {
+const GalleryPreviewPagination = () => {
 	const { images, imageIndexCounter, previewImage } = useGalleryContext();
 
 	const getImageSize = (index: number) => {
