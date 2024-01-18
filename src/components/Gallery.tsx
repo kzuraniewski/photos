@@ -61,6 +61,7 @@ const Gallery = ({ images }: GalleryProps) => {
 				<Centered>
 					{images.map((image, index) => (
 						<Box
+							key={`carousel-image-holder-${index}`}
 							display={index === previewIndex ? 'block' : 'none'}
 						>
 							<LazyImage
