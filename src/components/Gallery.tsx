@@ -3,15 +3,9 @@
 import useCounter from '@/lib/useCounter';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {
-	Box,
-	IconButton,
-	ImageList,
-	ImageListItem,
-	Modal,
-} from '@mui/material';
+import { Box, IconButton, Modal } from '@mui/material';
 import { useState } from 'react';
-import ImageButton from './ImageButton';
+import GalleryImageList from './GalleryImageList';
 import LazyImage from './LazyImage';
 import { Centered } from './layout-util';
 
@@ -40,22 +34,7 @@ const Gallery = ({ images }: GalleryProps) => {
 
 	return (
 		<>
-			<Box sx={{ display: 'flex', justifyContent: 'center' }}>
-				<ImageList cols={3}>
-					{images.map((imagePath, index) => (
-						<ImageListItem key={`gallery-image-${index}`}>
-							<ImageButton onClick={() => previewImage(index)}>
-								<LazyImage
-									src={imagePath}
-									alt="Gallery image"
-									width={250}
-									height={250}
-								/>
-							</ImageButton>
-						</ImageListItem>
-					))}
-				</ImageList>
-			</Box>
+			<GalleryImageList images={images} onSelect={previewImage} />
 
 			<Modal open={isPreviewMode} onClose={() => setIsPreviewMode(false)}>
 				<Centered>
