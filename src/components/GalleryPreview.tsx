@@ -17,6 +17,10 @@ const Background = sx(Box, {
 
 const Panel = sx(Centered, {
 	pointerEvents: 'auto',
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
 });
 
 const GalleryPreview = () => {
