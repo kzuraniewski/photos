@@ -1,4 +1,4 @@
-import { Box, SxProps } from '@mui/material';
+import { Box, ButtonBase, SxProps } from '@mui/material';
 import defaultsDeep from 'lodash.defaultsdeep';
 import React, { FunctionComponent } from 'react';
 
@@ -22,4 +22,11 @@ export const Centered = sx(Box, {
 	top: '50%',
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
+});
+
+export const ImageButton = sx(ButtonBase, {
+	position: 'relative',
+	transition: '0.2s',
+	overflow: 'hidden',
+	'&:hover': { filter: 'brightness(0.85)' },
 });

@@ -1,14 +1,8 @@
-import { Box, ButtonBase, ImageList, ImageListItem } from '@mui/material';
+import { Box, ImageList, ImageListItem } from '@mui/material';
 import LazyImage from './LazyImage';
-import sx from './layout-util';
+import sx, { ImageButton } from './layout-util';
 
 const Root = sx(Box, { display: 'flex', justifyContent: 'center' });
-
-const ImageButton = sx(ButtonBase, {
-	position: 'relative',
-	transition: '0.2s',
-	'&:hover': { filter: 'brightness(0.85)' },
-});
 
 export type GalleryImageListProps = {
 	images: string[];

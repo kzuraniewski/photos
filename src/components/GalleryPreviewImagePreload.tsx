@@ -20,8 +20,8 @@ const GalleryPreviewImagePreload = () => {
 						width={500}
 						height={500}
 						priority={index === imageIndexCounter.value}
-						variant="contain"
-						loader="spinner"
+						fit="contain"
+						fallback="spinner"
 					/>
 				</Box>
 			))}

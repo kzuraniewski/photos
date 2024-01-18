@@ -2,6 +2,7 @@ import useGalleryContext from '@/lib/useGalleryContext';
 import { Box, Modal } from '@mui/material';
 import GalleryPreviewActions from './GalleryPreviewActions';
 import GalleryPreviewImagePreload from './GalleryPreviewImagePreload';
+import GalleryPreviewPagination from './GalleryPreviewPagination';
 import sx, { Centered } from './layout-util';
 
 const Background = sx(Box, {
@@ -34,6 +35,8 @@ const GalleryPreview = () => {
 						disablePrevious={imageIndexCounter.atMin}
 						disableNext={imageIndexCounter.atMax}
 					/>
+
+					<GalleryPreviewPagination />
 				</Panel>
 			</Background>
 		</Modal>

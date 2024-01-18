@@ -1,56 +1,49 @@
 import { Box, CircularProgress, Skeleton } from '@mui/material';
+import defaultsDeep from 'lodash.defaultsdeep';
 import NextImage, { ImageProps as NextImageProps } from 'next/image';
 import { useMemo, useState } from 'react';
 import cx, { Centered } from './layout-util';
 
 const Root = cx(Box, { position: 'relative' });
 
-export type LazyImageLoader = 'skeleton' | 'spinner';
+export type LazyImageFallback = 'skeleton' | 'spinner';
 
-export type LazyImageVariant = 'cover' | 'contain';
+export type LazyImageFit = 'cover' | 'contain';
 
-export type ImageProps = Pick<
-	NextImageProps,
-	'src' | 'alt' | 'width' | 'height' | 'priority'
-> & {
+export type LazyImageProps = NextImageProps & {
 	/** @default 'skeleton' */
-	loader?: LazyImageLoader;
+	fallback?: LazyImageFallback;
 	/** @default 'cover' */
-	variant?: LazyImageVariant;
+	fit?: LazyImageFit;
 };
 
 const LazyImage = ({
-	src,
-	alt,
-	width,
-	height,
-	priority,
-	loader = 'skeleton',
-	variant = 'cover',
-}: ImageProps) => {
+	fallback = 'skeleton',
+	fit: variant = 'cover',
+	...props
+}: LazyImageProps) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	// prettier-ignore
 	const loadingElement = useMemo(() => {
-		if (loader === 'skeleton')
+		if (fallback === 'skeleton')
 			return <Skeleton variant="rectangular" width="100%" height="100%" />;
 
-		if (loader === 'spinner')
+		if (fallback === 'spinner')
 			return <Centered component={CircularProgress} />;
-	}, [loader]);
+	}, [fallback]);
+
+	const mergedStyle = defaultsDeep(props.style, { objectFit: variant });
+
+	const handleLoad: NextImageProps['onLoad'] = (event) => {
+		setIsLoading(false);
+		props.onLoad?.(event);
+	};
 
 	return (
 		<Root>
 			{isLoading && loadingElement}
-			<NextImage
-				src={src}
-				alt={alt}
-				width={width}
-				height={height}
-				priority={priority}
-				style={{ objectFit: variant }}
-				onLoad={() => setIsLoading(false)}
-			/>
+			<NextImage {...props} style={mergedStyle} onLoad={handleLoad} />
 		</Root>
 	);
 };
