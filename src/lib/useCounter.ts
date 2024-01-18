@@ -24,15 +24,20 @@ const useCounter = (
 	}, []);
 
 	const increase = useCallback(() => {
-		setValue((value) => (wrapValue(value + 1)));
+		setValue((value) => wrapValue(value + 1));
 	}, []);
 
 	const decrease = useCallback(() => {
-		setValue((value) => (wrapValue(value - 1)));
+		setValue((value) => wrapValue(value - 1));
 	}, []);
+
+	const atMin = value === min;
+	const atMax = value === max;
 
 	return {
 		value,
+		atMin,
+		atMax,
 		increase,
 		decrease,
 		set,

@@ -9,7 +9,7 @@ export type LazyImageVariant = 'cover' | 'contain';
 
 export type ImageProps = Pick<
 	NextImageProps,
-	'src' | 'alt' | 'width' | 'height'
+	'src' | 'alt' | 'width' | 'height' | 'priority'
 > & {
 	/** @default 'skeleton' */
 	loader?: LazyImageLoader;
@@ -22,6 +22,7 @@ const LazyImage = ({
 	alt,
 	width,
 	height,
+	priority,
 	loader = 'skeleton',
 	variant = 'cover',
 }: ImageProps) => {
@@ -44,6 +45,7 @@ const LazyImage = ({
 				alt={alt}
 				width={width}
 				height={height}
+				priority={priority}
 				style={{ objectFit: variant }}
 				onLoad={() => setIsLoading(false)}
 			/>

@@ -1,9 +1,16 @@
 'use client';
 
 import useCounter from '@/lib/useCounter';
-import { Box, ImageList, ImageListItem } from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import {
+	Box,
+	IconButton,
+	ImageList,
+	ImageListItem,
+	Modal,
+} from '@mui/material';
 import { useState } from 'react';
-import GalleryPreview from './GalleryPreview';
 import ImageButton from './ImageButton';
 import LazyImage from './LazyImage';
 import { Centered } from './layout-util';
@@ -15,6 +22,8 @@ export type GalleryProps = {
 const Gallery = ({ images }: GalleryProps) => {
 	const {
 		value: previewIndex,
+		atMin: isPreviewLeftmost,
+		atMax: isPreviewRightmost,
 		decrease: decreasePreviewIndex,
 		increase: increasePreviewIndex,
 		set: setPreviewIndex,
@@ -48,15 +57,45 @@ const Gallery = ({ images }: GalleryProps) => {
 				</ImageList>
 			</Box>
 
-			<GalleryPreview
-				open={isPreviewMode}
-				image={images[previewIndex]}
-				disableNextButton={previewIndex >= images.length - 1}
-				disablePreviousButton={previewIndex <= 0}
-				onClose={() => setIsPreviewMode(false)}
-				onPrevious={decreasePreviewIndex}
-				onNext={increasePreviewIndex}
-			/>
+			<Modal open={isPreviewMode} onClose={() => setIsPreviewMode(false)}>
+				<Centered>
+					{images.map((image, index) => (
+						<Box
+							display={index === previewIndex ? 'block' : 'none'}
+						>
+							<LazyImage
+								src={image}
+								alt="Gallery image preview"
+								width={500}
+								height={500}
+								priority={index === previewIndex}
+								variant="contain"
+								loader="spinner"
+							/>
+						</Box>
+					))}
+
+					<Centered
+						display="flex"
+						justifyContent="space-between"
+						width="calc(100% + 50px)"
+					>
+						<IconButton
+							onClick={decreasePreviewIndex}
+							disabled={isPreviewLeftmost}
+						>
+							<ChevronLeftIcon />
+						</IconButton>
+
+						<IconButton
+							onClick={increasePreviewIndex}
+							disabled={isPreviewRightmost}
+						>
+							<ChevronRightIcon />
+						</IconButton>
+					</Centered>
+				</Centered>
+			</Modal>
 		</>
 	);
 };
