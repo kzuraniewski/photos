@@ -4,7 +4,7 @@ import { Counter } from './useCounter';
 export type GalleryState = {
 	images: string[];
 	isPreviewMode: boolean;
-	openPreview: (imageIndex?: number) => void;
+	previewImage: (imageIndex?: number) => void;
 	closePreview: () => void;
 	imageIndexCounter: Counter;
 };
@@ -12,7 +12,7 @@ export type GalleryState = {
 export const GalleryContext = createContext<GalleryState>({
 	images: [],
 	isPreviewMode: false,
-	openPreview: null!,
+	previewImage: null!,
 	closePreview: null!,
 	imageIndexCounter: null!,
 });

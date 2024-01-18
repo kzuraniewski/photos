@@ -17,7 +17,7 @@ const Gallery = ({ images }: GalleryProps) => {
 	});
 	const [isPreviewMode, setIsPreviewMode] = useState(false);
 
-	const openPreview = (imageIndex?: number) => {
+	const previewImage = (imageIndex?: number) => {
 		setIsPreviewMode(true);
 		if (imageIndex) imageIndexCounter.set(imageIndex);
 	};
@@ -30,12 +30,12 @@ const Gallery = ({ images }: GalleryProps) => {
 				images,
 				imageIndexCounter,
 				isPreviewMode,
-				openPreview,
+				previewImage,
 				closePreview,
 			}}
 		>
-			<GalleryImageList images={images} onSelect={openPreview} />
-			
+			<GalleryImageList images={images} onSelect={previewImage} />
+
 			<GalleryPreview />
 		</GalleryContext.Provider>
 	);
