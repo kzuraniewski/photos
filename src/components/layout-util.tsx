@@ -3,8 +3,9 @@ import defaultsDeep from 'lodash.defaultsdeep';
 import React, { FunctionComponent } from 'react';
 
 /**
- * Create a pre-styled MUI component by providing custom style attributes using `sx` prop
+ * Create a pre-styled MUI component by providing custom style attributes using the `sx` prop.
  */
+// TODO: verify if still viable after MUI v6 releases
 const sx = <TComponent extends FunctionComponent<{ sx: SxProps }>>(
 	Component: TComponent,
 	customSx: SxProps
