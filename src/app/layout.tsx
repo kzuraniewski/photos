@@ -1,10 +1,19 @@
-import { Inter } from 'next/font/google';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { CssBaseline, Box, Container, ThemeProvider } from '@mui/material';
-import type { Metadata } from 'next';
+import sx from '@/components/layout-util';
 import theme from '@/theme';
+import { Box, Container, CssBaseline, ThemeProvider } from '@mui/material';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
+
+const Background = sx(Box, {
+	px: 1,
+	py: 3,
+	minHeight: '100vh',
+	background:
+		'linear-gradient(180deg, rgba(0,8,14,1) 0%, rgba(20,42,80,1) 100%)',
+});
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -19,17 +28,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 					<ThemeProvider theme={theme}>
 						<CssBaseline />
 
-						<Box
-							sx={{
-								px: 1,
-								py: 3,
-								minHeight: '100vh',
-								background:
-									'linear-gradient(180deg, rgba(0,8,14,1) 0%, rgba(20,42,80,1) 100%)',
-							}}
-						>
+						<Background>
 							<Container>{children}</Container>
-						</Box>
+						</Background>
 					</ThemeProvider>
 				</AppRouterCacheProvider>
 			</body>
