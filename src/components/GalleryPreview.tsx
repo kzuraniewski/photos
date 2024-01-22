@@ -1,27 +1,10 @@
 import useGalleryContext from '@/lib/useGalleryContext';
 import { Box, Modal } from '@mui/material';
+import { SystemStyleObject } from '@mui/system';
 import GalleryPreviewActions from './GalleryPreviewActions';
 import GalleryPreviewImagePreload from './GalleryPreviewImagePreload';
 import GalleryPreviewPagination from './GalleryPreviewPagination';
-import sx, { Centered } from './layout-util';
-
-const Background = sx(Box, {
-	display: 'flex',
-	justifyContent: 'center',
-	alignItems: 'center',
-	width: '100%',
-	height: '100%',
-	backdropFilter: 'blur(3px)',
-	pointerEvents: 'none',
-});
-
-const Panel = sx(Centered, {
-	pointerEvents: 'auto',
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'center',
-	alignItems: 'center',
-});
+import { centered } from './layout-util';
 
 const GalleryPreview = () => {
 	const { imageIndexCounter, isPreviewMode, closePreview } =
@@ -29,8 +12,8 @@ const GalleryPreview = () => {
 
 	return (
 		<Modal open={isPreviewMode} onClose={closePreview}>
-			<Background>
-				<Panel>
+			<Box sx={background}>
+				<Box sx={panel}>
 					<GalleryPreviewImagePreload />
 
 					<GalleryPreviewActions
@@ -41,10 +24,29 @@ const GalleryPreview = () => {
 					/>
 
 					<GalleryPreviewPagination />
-				</Panel>
-			</Background>
+				</Box>
+			</Box>
 		</Modal>
 	);
+};
+
+const background: SystemStyleObject = {
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	width: '100%',
+	height: '100%',
+	backdropFilter: 'blur(3px)',
+	pointerEvents: 'none',
+};
+
+const panel: SystemStyleObject = {
+	...centered,
+	pointerEvents: 'auto',
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
 };
 
 export default GalleryPreview;

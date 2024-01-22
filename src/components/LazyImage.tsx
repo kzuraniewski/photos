@@ -1,10 +1,9 @@
 import { Box, CircularProgress, Skeleton } from '@mui/material';
+import { SystemStyleObject } from '@mui/system';
 import defaultsDeep from 'lodash.defaultsdeep';
 import NextImage, { ImageProps as NextImageProps } from 'next/image';
 import { useMemo, useState } from 'react';
-import cx, { Centered } from './layout-util';
-
-const Root = cx(Box, { position: 'relative' });
+import { centered } from './layout-util';
 
 export type LazyImageFallback = 'skeleton' | 'spinner';
 
@@ -30,7 +29,7 @@ const LazyImage = ({
 			return <Skeleton variant="rectangular" width="100%" height="100%" />;
 
 		if (fallback === 'spinner')
-			return <Centered component={CircularProgress} />;
+			return <Box sx={centered} component={CircularProgress} />;
 	}, [fallback]);
 
 	const mergedStyle = defaultsDeep(props.style, { objectFit: variant });
@@ -41,11 +40,15 @@ const LazyImage = ({
 	};
 
 	return (
-		<Root>
+		<Box sx={root}>
 			{isLoading && loadingElement}
 			<NextImage {...props} style={mergedStyle} onLoad={handleLoad} />
-		</Root>
+		</Box>
 	);
+};
+
+const root: SystemStyleObject = {
+	position: 'relative',
 };
 
 export default LazyImage;

@@ -1,45 +1,47 @@
 import useGalleryContext from '@/lib/useGalleryContext';
-import { Stack } from '@mui/material';
+import { ButtonBase, Stack } from '@mui/material';
+import { SystemStyleObject } from '@mui/system';
 import LazyImage from './LazyImage';
-import sx, { ImageButton } from './layout-util';
+import { imageButton } from './layout-util';
 
 const imageSizes = {
 	default: { width: 60, height: 80 },
 	big: { width: 80, height: 100 },
 };
 
-const RootStack = sx(Stack, {
-	marginTop: 4,
-	height: imageSizes.big.height,
-});
-
 const GalleryPreviewPagination = () => {
 	const { images, imageIndexCounter, previewImage } = useGalleryContext();
 
-	const getImageSize = (index: number) => {
+	const getImageDimensions = (index: number) => {
 		return index === imageIndexCounter.value
 			? imageSizes.big
 			: imageSizes.default;
 	};
 
 	return (
-		<RootStack gap={1} direction="row" alignItems="center">
+		<Stack sx={rootStack} gap={1} direction="row" alignItems="center">
 			{images.map((image, index) => (
-				<ImageButton
+				<ButtonBase
+					key={`pagination-item-${index}`}
 					onClick={() => previewImage(index)}
-					sx={getImageSize(index)}
+					sx={[imageButton, getImageDimensions(index)]}
 				>
 					<LazyImage
 						src={image}
 						alt="Pagination image"
 						priority={index === imageIndexCounter.value}
-						style={getImageSize(index)}
+						style={getImageDimensions(index)}
 						{...imageSizes.big}
 					/>
-				</ImageButton>
+				</ButtonBase>
 			))}
-		</RootStack>
+		</Stack>
 	);
+};
+
+const rootStack: SystemStyleObject = {
+	marginTop: 4,
+	height: imageSizes.big.height,
 };
 
 export default GalleryPreviewPagination;

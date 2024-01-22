@@ -1,13 +1,8 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { IconButton } from '@mui/material';
-import sx, { Centered } from './layout-util';
-
-const Root = sx(Centered, {
-	display: 'flex',
-	justifyContent: 'space-between',
-	width: 'calc(100% + 50px)',
-});
+import { Box, IconButton } from '@mui/material';
+import { SystemStyleObject } from '@mui/system';
+import { centered } from './layout-util';
 
 export type GalleryPreviewActionsProps = {
 	disablePrevious?: boolean;
@@ -23,7 +18,7 @@ const GalleryPreviewActions = ({
 	onNext,
 }: GalleryPreviewActionsProps) => {
 	return (
-		<Root>
+		<Box sx={root}>
 			<IconButton onClick={onPrevious} disabled={disablePrevious}>
 				<ChevronLeftIcon />
 			</IconButton>
@@ -31,8 +26,15 @@ const GalleryPreviewActions = ({
 			<IconButton onClick={onNext} disabled={disableNext}>
 				<ChevronRightIcon />
 			</IconButton>
-		</Root>
+		</Box>
 	);
+};
+
+const root: SystemStyleObject = {
+	...centered,
+	display: 'flex',
+	justifyContent: 'space-between',
+	width: 'calc(100% + 50px)',
 };
 
 export default GalleryPreviewActions;
