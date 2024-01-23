@@ -22,7 +22,7 @@ const ImageSelect = ({ images, activeIndex, ...props }: ImageSelectProps) => {
 						alt="Gallery image preview"
 						width={500}
 						height={500}
-						priority={index === activeIndex}
+						priority
 						fit="contain"
 						fallback="spinner"
 						{...props}
