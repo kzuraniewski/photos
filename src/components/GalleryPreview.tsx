@@ -2,18 +2,21 @@ import mergeSx from '@/lib/mergeSx';
 import useGalleryContext from '@/lib/useGalleryContext';
 import { Box, BoxProps, Modal } from '@mui/material';
 import GalleryPreviewActions from './GalleryPreviewActions';
-import GalleryPreviewImagePreload from './GalleryPreviewImagePreload';
 import GalleryPreviewPagination from './GalleryPreviewPagination';
+import ImageSelect from './ImageSelect';
 
 const GalleryPreview = () => {
-	const { imageIndexCounter, isPreviewMode, closePreview } =
+	const { images, imageIndexCounter, isPreviewMode, closePreview } =
 		useGalleryContext();
 
 	return (
 		<Modal open={isPreviewMode} onClose={closePreview}>
 			<Background>
 				<Panel>
-					<GalleryPreviewImagePreload />
+					<ImageSelect
+						images={images}
+						activeIndex={imageIndexCounter.value}
+					/>
 
 					<GalleryPreviewActions
 						onPrevious={imageIndexCounter.decrease}
