@@ -24,7 +24,7 @@ export type LazyImageProps = NextImageProps & {
 
 const LazyImage = ({
 	fallback = 'skeleton',
-	fit: variant = 'cover',
+	fit = 'cover',
 	...props
 }: LazyImageProps) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +34,7 @@ const LazyImage = ({
 		if (fallback === 'spinner') return <ImageSpinner />;
 	}, [fallback]);
 
-	const mergedStyle = defaultsDeep(props.style, { objectFit: variant });
+	const mergedStyle = defaultsDeep(props.style, { objectFit: fit });
 
 	const handleLoad: NextImageProps['onLoad'] = (event) => {
 		setIsLoading(false);
