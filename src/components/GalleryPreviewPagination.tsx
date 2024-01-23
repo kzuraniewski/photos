@@ -1,8 +1,8 @@
+import mergeSx from '@/lib/mergeSx';
 import useGalleryContext from '@/lib/useGalleryContext';
-import { ButtonBase, Stack } from '@mui/material';
-import { SystemStyleObject } from '@mui/system';
+import { Stack, StackProps } from '@mui/material';
 import LazyImage from './LazyImage';
-import { imageButton } from './layout-util';
+import { ImageButton } from './layout-util';
 
 const imageSizes = {
 	default: { width: 60, height: 80 },
@@ -19,12 +19,11 @@ const GalleryPreviewPagination = () => {
 	};
 
 	return (
-		<Stack sx={rootStack} gap={1} direction="row" alignItems="center">
+		<RootStack>
 			{images.map((image, index) => (
-				<ButtonBase
+				<ImageButton
 					key={`pagination-item-${index}`}
 					onClick={() => previewImage(index)}
-					sx={[imageButton, getImageDimensions(index)]}
 				>
 					<LazyImage
 						src={image}
@@ -33,15 +32,21 @@ const GalleryPreviewPagination = () => {
 						style={getImageDimensions(index)}
 						{...imageSizes.big}
 					/>
-				</ButtonBase>
+				</ImageButton>
 			))}
-		</Stack>
+		</RootStack>
 	);
 };
 
-const rootStack: SystemStyleObject = {
-	marginTop: 4,
-	height: imageSizes.big.height,
+const RootStack = ({ sx: sxOverride, ...props }: StackProps) => {
+	const sx = mergeSx(sxOverride, {
+		marginTop: 4,
+		height: imageSizes.big.height,
+	});
+
+	return (
+		<Stack gap={1} direction="row" alignItems="center" sx={sx} {...props} />
+	);
 };
 
 export default GalleryPreviewPagination;

@@ -1,7 +1,13 @@
+import mergeSx from '@/lib/mergeSx';
 import theme from '@/theme';
-import { Box, Container, CssBaseline, ThemeProvider } from '@mui/material';
+import {
+	Box,
+	BoxProps,
+	Container,
+	CssBaseline,
+	ThemeProvider,
+} from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { SystemStyleObject } from '@mui/system';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
@@ -18,11 +24,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 					<CssBaseline />
 
 					<ThemeProvider theme={theme}>
-						<Box sx={background}>
-							<Box component="main" sx={content}>
+						<Background>
+							<Content>
 								<Container>{children}</Container>
-							</Box>
-						</Box>
+							</Content>
+						</Background>
 					</ThemeProvider>
 				</AppRouterCacheProvider>
 			</body>
@@ -32,15 +38,23 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
 const inter = Inter({ subsets: ['latin'] });
 
-const background: SystemStyleObject = {
-	minHeight: '100vh',
-	background:
-		'linear-gradient(180deg, rgba(0,8,14,1) 0%, rgba(20,42,80,1) 100%)',
+const Background = ({ sx: sxOverride, ...props }: BoxProps) => {
+	const sx = mergeSx(sxOverride, {
+		minHeight: '100vh',
+		background:
+			'linear-gradient(180deg, rgba(0,8,14,1) 0%, rgba(20,42,80,1) 100%)',
+	});
+
+	return <Box sx={sx} {...props} />;
 };
 
-const content: SystemStyleObject = {
-	px: 1,
-	py: 3,
+const Content = ({ sx: sxOverride, ...props }: BoxProps) => {
+	const sx = mergeSx(sxOverride, {
+		px: 1,
+		py: 3,
+	});
+
+	return <Box component="main" sx={sx} {...props} />;
 };
 
 export default RootLayout;

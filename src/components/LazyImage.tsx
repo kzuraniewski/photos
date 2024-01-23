@@ -1,9 +1,15 @@
-import { Box, CircularProgress, Skeleton } from '@mui/material';
-import { SystemStyleObject } from '@mui/system';
+import mergeSx from '@/lib/mergeSx';
+import {
+	Box,
+	BoxProps,
+	CircularProgress,
+	CircularProgressProps,
+	Skeleton,
+	SkeletonProps,
+} from '@mui/material';
 import defaultsDeep from 'lodash.defaultsdeep';
 import NextImage, { ImageProps as NextImageProps } from 'next/image';
 import { useMemo, useState } from 'react';
-import { centered } from './layout-util';
 
 export type LazyImageFallback = 'skeleton' | 'spinner';
 
@@ -23,13 +29,9 @@ const LazyImage = ({
 }: LazyImageProps) => {
 	const [isLoading, setIsLoading] = useState(true);
 
-	// prettier-ignore
 	const loadingElement = useMemo(() => {
-		if (fallback === 'skeleton')
-			return <Skeleton variant="rectangular" width="100%" height="100%" />;
-
-		if (fallback === 'spinner')
-			return <Box sx={centered} component={CircularProgress} />;
+		if (fallback === 'skeleton') return <ImageSkeleton />;
+		if (fallback === 'spinner') return <ImageSpinner />;
 	}, [fallback]);
 
 	const mergedStyle = defaultsDeep(props.style, { objectFit: variant });
@@ -40,15 +42,36 @@ const LazyImage = ({
 	};
 
 	return (
-		<Box sx={root}>
+		<Root>
 			{isLoading && loadingElement}
 			<NextImage {...props} style={mergedStyle} onLoad={handleLoad} />
-		</Box>
+		</Root>
 	);
 };
 
-const root: SystemStyleObject = {
-	position: 'relative',
+const Root = ({ sx: sxOverride, ...props }: BoxProps) => {
+	const sx = mergeSx(sxOverride, {
+		position: 'relative',
+	});
+
+	return <Box sx={sx} {...props} />;
+};
+
+const ImageSkeleton = (props: SkeletonProps) => {
+	return (
+		<Skeleton variant="rectangular" width="100%" height="100%" {...props} />
+	);
+};
+
+const ImageSpinner = ({ sx: sxOverride, ...props }: CircularProgressProps) => {
+	const sx = mergeSx(sxOverride, {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+	});
+
+	return <CircularProgress sx={sx} {...props} />;
 };
 
 export default LazyImage;

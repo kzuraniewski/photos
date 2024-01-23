@@ -1,6 +1,6 @@
 import useGalleryContext from '@/lib/useGalleryContext';
-import { Box } from '@mui/material';
 import LazyImage from './LazyImage';
+import { VisibilityToggle } from './layout-util';
 
 const GalleryPreviewImagePreload = () => {
 	const { images, imageIndexCounter } = useGalleryContext();
@@ -8,11 +8,9 @@ const GalleryPreviewImagePreload = () => {
 	return (
 		<div>
 			{images.map((image, index) => (
-				<Box
+				<VisibilityToggle
 					key={`carousel-image-holder-${index}`}
-					display={
-						index === imageIndexCounter.value ? 'block' : 'none'
-					}
+					hidden={index !== imageIndexCounter.value}
 				>
 					<LazyImage
 						src={image}
@@ -23,7 +21,7 @@ const GalleryPreviewImagePreload = () => {
 						fit="contain"
 						fallback="spinner"
 					/>
-				</Box>
+				</VisibilityToggle>
 			))}
 		</div>
 	);

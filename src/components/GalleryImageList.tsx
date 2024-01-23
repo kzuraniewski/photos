@@ -1,7 +1,7 @@
-import { Box, ButtonBase, ImageList, ImageListItem } from '@mui/material';
-import { SystemStyleObject } from '@mui/system';
+import mergeSx from '@/lib/mergeSx';
+import { Box, BoxProps, ImageList, ImageListItem } from '@mui/material';
 import LazyImage from './LazyImage';
-import { imageButton } from './layout-util';
+import { ImageButton } from './layout-util';
 
 export type GalleryImageListProps = {
 	images: string[];
@@ -10,31 +10,32 @@ export type GalleryImageListProps = {
 
 const GalleryImageList = ({ images, onSelect }: GalleryImageListProps) => {
 	return (
-		<Box sx={root}>
+		<Root>
 			<ImageList cols={3}>
 				{images.map((imagePath, index) => (
 					<ImageListItem key={`gallery-image-${index}`}>
-						<ButtonBase
-							sx={imageButton}
-							onClick={() => onSelect?.(index)}
-						>
+						<ImageButton onClick={() => onSelect?.(index)}>
 							<LazyImage
 								src={imagePath}
 								alt="Gallery image"
 								width={250}
 								height={250}
 							/>
-						</ButtonBase>
+						</ImageButton>
 					</ImageListItem>
 				))}
 			</ImageList>
-		</Box>
+		</Root>
 	);
 };
 
-const root: SystemStyleObject = {
-	display: 'flex',
-	justifyContent: 'center',
+const Root = ({ sx: sxOverride, ...props }: BoxProps) => {
+	const sx = mergeSx(sxOverride, {
+		display: 'flex',
+		justifyContent: 'center',
+	});
+
+	return <Box sx={sx} {...props} />;
 };
 
 export default GalleryImageList;

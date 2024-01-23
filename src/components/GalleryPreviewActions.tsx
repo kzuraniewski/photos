@@ -1,8 +1,7 @@
+import mergeSx from '@/lib/mergeSx';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Box, IconButton } from '@mui/material';
-import { SystemStyleObject } from '@mui/system';
-import { centered } from './layout-util';
+import { Box, BoxProps, IconButton } from '@mui/material';
 
 export type GalleryPreviewActionsProps = {
 	disablePrevious?: boolean;
@@ -18,7 +17,7 @@ const GalleryPreviewActions = ({
 	onNext,
 }: GalleryPreviewActionsProps) => {
 	return (
-		<Box sx={root}>
+		<Root>
 			<IconButton onClick={onPrevious} disabled={disablePrevious}>
 				<ChevronLeftIcon />
 			</IconButton>
@@ -26,15 +25,22 @@ const GalleryPreviewActions = ({
 			<IconButton onClick={onNext} disabled={disableNext}>
 				<ChevronRightIcon />
 			</IconButton>
-		</Box>
+		</Root>
 	);
 };
 
-const root: SystemStyleObject = {
-	...centered,
-	display: 'flex',
-	justifyContent: 'space-between',
-	width: 'calc(100% + 50px)',
+const Root = ({ sx: sxOverride, ...props }: BoxProps) => {
+	const sx = mergeSx(sxOverride, {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		display: 'flex',
+		justifyContent: 'space-between',
+		width: 'calc(100% + 50px)',
+	});
+
+	return <Box sx={sx} {...props} />;
 };
 
 export default GalleryPreviewActions;
