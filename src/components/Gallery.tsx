@@ -34,7 +34,7 @@ const Gallery = ({ images }: GalleryProps) => {
 				closePreview,
 			}}
 		>
-			<GalleryImageList images={images} onSelect={previewImage} />
+			<GalleryImageList images={images} onImageClick={previewImage} />
 
 			<GalleryPreview />
 		</GalleryContext.Provider>

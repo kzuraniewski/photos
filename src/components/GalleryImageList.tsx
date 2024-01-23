@@ -5,16 +5,16 @@ import { ImageButton } from './layout-util';
 
 export type GalleryImageListProps = {
 	images: string[];
-	onSelect?: (index: number) => void;
+	onImageClick?: (index: number) => void;
 };
 
-const GalleryImageList = ({ images, onSelect }: GalleryImageListProps) => {
+const GalleryImageList = ({ images, onImageClick }: GalleryImageListProps) => {
 	return (
 		<Root>
 			<ImageList cols={3}>
 				{images.map((imagePath, index) => (
 					<ImageListItem key={`gallery-image-${index}`}>
-						<ImageButton onClick={() => onSelect?.(index)}>
+						<ImageButton onClick={() => onImageClick?.(index)}>
 							<LazyImage
 								src={imagePath}
 								alt="Gallery image"
