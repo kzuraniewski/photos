@@ -3,8 +3,8 @@
 import useCounter from '@/lib/useCounter';
 import { GalleryContext } from '@/lib/useGalleryContext';
 import { useState } from 'react';
-import GalleryImageList from './GalleryImageList';
 import GalleryPreview from './GalleryPreview';
+import ImageList from './ImageList';
 
 export type GalleryProps = {
 	images: string[];
@@ -34,7 +34,7 @@ const Gallery = ({ images }: GalleryProps) => {
 				closePreview,
 			}}
 		>
-			<GalleryImageList images={images} onImageClick={previewImage} />
+			<ImageList images={images} onImageClick={previewImage} />
 
 			<GalleryPreview />
 		</GalleryContext.Provider>

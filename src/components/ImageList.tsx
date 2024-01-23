@@ -1,17 +1,22 @@
 import mergeSx from '@/lib/mergeSx';
-import { Box, BoxProps, ImageList, ImageListItem } from '@mui/material';
+import {
+	Box,
+	BoxProps,
+	ImageListItem,
+	ImageList as MuiImageList,
+} from '@mui/material';
 import LazyImage from './LazyImage';
 import { ImageButton } from './layout-util';
 
-export type GalleryImageListProps = {
+export type ImageListProps = {
 	images: string[];
 	onImageClick?: (index: number) => void;
 };
 
-const GalleryImageList = ({ images, onImageClick }: GalleryImageListProps) => {
+const ImageList = ({ images, onImageClick }: ImageListProps) => {
 	return (
 		<Root>
-			<ImageList cols={3}>
+			<MuiImageList cols={3}>
 				{images.map((imagePath, index) => (
 					<ImageListItem key={`gallery-image-${index}`}>
 						<ImageButton onClick={() => onImageClick?.(index)}>
@@ -24,7 +29,7 @@ const GalleryImageList = ({ images, onImageClick }: GalleryImageListProps) => {
 						</ImageButton>
 					</ImageListItem>
 				))}
-			</ImageList>
+			</MuiImageList>
 		</Root>
 	);
 };
@@ -38,4 +43,4 @@ const Root = ({ sx: sxOverride, ...props }: BoxProps) => {
 	return <Box sx={sx} {...props} />;
 };
 
-export default GalleryImageList;
+export default ImageList;
