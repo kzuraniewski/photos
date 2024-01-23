@@ -22,9 +22,9 @@ const Gallery = ({ images }: GalleryProps) => {
 	});
 	const [isPreviewMode, setIsPreviewMode] = useState(false);
 
-	const previewImage = (imageIndex?: number) => {
+	const previewImage = (imageIndex: number) => {
 		setIsPreviewMode(true);
-		if (imageIndex !== undefined) imageIndexCounter.set(imageIndex);
+		imageIndexCounter.set(imageIndex);
 	};
 
 	const closePreview = () => setIsPreviewMode(false);
