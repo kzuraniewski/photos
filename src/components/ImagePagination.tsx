@@ -8,17 +8,17 @@ const imageSizes = {
 	big: { width: 80, height: 100 },
 };
 
-export type GalleryPreviewPaginationProps = {
+export type ImagePaginationProps = {
 	images: string[];
 	activeIndex: number;
 	onImageClick?: (index: number) => void;
 };
 
-const GalleryPreviewPagination = ({
+const ImagePagination = ({
 	images,
 	activeIndex,
 	onImageClick,
-}: GalleryPreviewPaginationProps) => {
+}: ImagePaginationProps) => {
 	const getImageDimensions = (index: number) => {
 		return index === activeIndex ? imageSizes.big : imageSizes.default;
 	};
@@ -54,4 +54,4 @@ const RootStack = ({ sx: sxOverride, ...props }: StackProps) => {
 	);
 };
 
-export default GalleryPreviewPagination;
+export default ImagePagination;

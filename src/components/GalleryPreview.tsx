@@ -2,7 +2,7 @@ import mergeSx from '@/lib/mergeSx';
 import useGalleryContext from '@/lib/useGalleryContext';
 import { Box, BoxProps, Modal } from '@mui/material';
 import GalleryPreviewActions from './GalleryPreviewActions';
-import GalleryPreviewPagination from './GalleryPreviewPagination';
+import ImagePagination from './ImagePagination';
 import ImageSelect from './ImageSelect';
 
 const GalleryPreview = () => {
@@ -30,7 +30,7 @@ const GalleryPreview = () => {
 						disableNext={imageIndexCounter.atMax}
 					/>
 
-					<GalleryPreviewPagination
+					<ImagePagination
 						images={images}
 						activeIndex={imageIndexCounter.value}
 						onImageClick={previewImage}
