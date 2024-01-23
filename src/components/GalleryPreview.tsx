@@ -6,8 +6,13 @@ import GalleryPreviewPagination from './GalleryPreviewPagination';
 import ImageSelect from './ImageSelect';
 
 const GalleryPreview = () => {
-	const { images, imageIndexCounter, isPreviewMode, closePreview } =
-		useGalleryContext();
+	const {
+		images,
+		imageIndexCounter,
+		isPreviewMode,
+		previewImage,
+		closePreview,
+	} = useGalleryContext();
 
 	return (
 		<Modal open={isPreviewMode} onClose={closePreview}>
@@ -25,7 +30,11 @@ const GalleryPreview = () => {
 						disableNext={imageIndexCounter.atMax}
 					/>
 
-					<GalleryPreviewPagination />
+					<GalleryPreviewPagination
+						images={images}
+						activeIndex={imageIndexCounter.value}
+						onImageClick={previewImage}
+					/>
 				</Panel>
 			</Background>
 		</Modal>

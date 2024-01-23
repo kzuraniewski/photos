@@ -1,5 +1,4 @@
 import mergeSx from '@/lib/mergeSx';
-import useGalleryContext from '@/lib/useGalleryContext';
 import { Stack, StackProps } from '@mui/material';
 import LazyImage from './LazyImage';
 import { ImageButton } from './layout-util';
@@ -9,13 +8,19 @@ const imageSizes = {
 	big: { width: 80, height: 100 },
 };
 
-const GalleryPreviewPagination = () => {
-	const { images, imageIndexCounter, previewImage } = useGalleryContext();
+export type GalleryPreviewPaginationProps = {
+	images: string[];
+	activeIndex: number;
+	onImageClick?: (index: number) => void;
+};
 
+const GalleryPreviewPagination = ({
+	images,
+	activeIndex,
+	onImageClick,
+}: GalleryPreviewPaginationProps) => {
 	const getImageDimensions = (index: number) => {
-		return index === imageIndexCounter.value
-			? imageSizes.big
-			: imageSizes.default;
+		return index === activeIndex ? imageSizes.big : imageSizes.default;
 	};
 
 	return (
@@ -23,12 +28,12 @@ const GalleryPreviewPagination = () => {
 			{images.map((image, index) => (
 				<ImageButton
 					key={`pagination-item-${index}`}
-					onClick={() => previewImage(index)}
+					onClick={() => onImageClick?.(index)}
 				>
 					<LazyImage
 						src={image}
 						alt="Pagination image"
-						priority={index === imageIndexCounter.value}
+						priority={index === activeIndex}
 						style={getImageDimensions(index)}
 						{...imageSizes.big}
 					/>
